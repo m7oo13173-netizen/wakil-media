@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 ROLES = {
  'whoosh':     [('transitions', r'^whoosh')],
  'swipe':      [('transitions', r'^(swipe|zip)')],
- 'hit':        [('impacts', r'impact_impact_(punch|soft|plate)_(medium|heavy)|^impact')],
+ 'hit':        [('impacts', r'impact_impact_(punch|soft|plate)_(medium|heavy)|^impact(_2|_soft.*)?\.mp3')],
  'punch':      [('impacts', r'punch')],
  'boom':       [('impacts', r'^(boom|bass_drop|sci_low_frequency|hit)')],
  'riser':      [('risers', r'^(riser|air_swell)')],

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../lib/base.css">
+<style>
+#bgA{background:radial-gradient(circle at 50% 30%,#3a1020 0%,#12060c 75%)}
+#bgB{background:radial-gradient(circle at 50% 30%,#14213d 0%,#05070f 80%)}
+#bgG{background:radial-gradient(circle at 50% 30%,#0f5c4c 0%,#0a2a26 75%)}
+.scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0 2px,transparent 2px 6px);pointer-events:none}
+.warn{left:50%;top:150px;margin-left:-330px;width:660px;text-align:center;background:#e5383b;color:#fff;font-weight:900;font-size:58px;border-radius:60px;padding:8px 0;box-shadow:0 0 0 10px rgba(229,56,59,.25)}
+.ai{left:80px;right:80px;top:330px;border-radius:40px;background:#0d1426;border:4px solid #3ee6b5;padding:30px 36px;box-shadow:0 0 60px rgba(62,230,181,.25)}
+.ai .hd{display:flex;align-items:center;gap:18px;font-family:CairoL;font-weight:900;font-size:40px;color:#3ee6b5;direction:ltr}
+.ai .hd i{display:block;width:22px;height:22px;border-radius:50%;background:#3ee6b5}
+.ai .q{margin-top:18px;font-weight:700;font-size:54px;line-height:1.35;color:#fff;min-height:150px}
+.cur{display:inline-block;width:6px;height:56px;background:#3ee6b5;vertical-align:middle;margin-right:4px}
+.task{left:100px;right:100px;height:140px;background:rgba(255,255,255,.08);border:4px solid rgba(255,255,255,.2);border-radius:36px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;font-weight:900;font-size:58px}
+.task b{font-family:CairoL;font-size:44px;background:#e5383b;color:#fff;border-radius:20px;padding:4px 20px}
+.quote{left:70px;right:70px;top:420px;border-radius:44px;background:#fff;color:#1b1530;padding:44px 40px;text-align:center;font-weight:900;font-size:70px;line-height:1.35;box-shadow:0 20px 0 rgba(0,0,0,.3)}
+.quote em{font-style:normal;color:#0b8a6c}
+.quote s{text-decoration:none;color:#e5383b}
+</style></head><body>
+<div id="stage">
+  <div class="bg" id="bgA"></div><div class="bg" id="bgB" style="opacity:0"></div><div class="bg" id="bgG" style="opacity:0"></div>
+  <div class="scan"></div>
+
+  <div class="abs warn" id="w1">هل وظيفتك بأمان؟</div>
+  <div class="abs ai" id="ai"><div class="hd"><i></i>AI</div><div class="q" id="q"></div></div>
+
+  <div class="abs title" id="t2" style="top:150px;font-size:76px">أي شغل <b>مكرر…</b> أقدر أسويه!</div>
+  <div class="abs task" id="k1" style="top:380px">الرد على الرسايل <b>AI</b></div>
+  <div class="abs task" id="k2" style="top:560px">الحجوزات <b>AI</b></div>
+  <div class="abs task" id="k3" style="top:740px">إدخال البيانات <b>AI</b></div>
+
+  <div class="abs title" id="t3" style="top:140px;font-size:70px">بس بعدها قال شي <b>غيّر تفكيري…</b></div>
+  <div class="abs quote" id="qt">الذكاء الاصطناعي <s>ما بياخذ مكانك</s><br>اللي <em>يستخدمه</em><br>هو اللي بياخذ مكانك!</div>
+
+  <div class="abs pill" id="z2" style="top:560px;left:70px;right:70px;text-align:center;font-size:50px;background:#3ee6b5;color:#0a2a26">وكيلك الذكي يرد عن محلك 24 ساعة</div>
+  <div class="abs title" id="z1" style="top:220px;font-size:100px">لا تخاف منه…<br><b>خلّه يشتغل لك!</b></div>
+
+  <img class="pose" id="p_think" src="../mascot/pose_think.png">
+  <img class="pose" id="p_shock" src="../mascot/pose_shock.png">
+  <img class="pose" id="p_shrug" src="../mascot/pose_shrug.png">
+  <img class="pose" id="p_shock2" src="../mascot/pose_shock.png">
+  <img class="pose" id="p_scheme" src="../mascot/pose_scheme.png">
+  <div class="flash" id="flash"></div>
+</div>
+<script src="../lib/lib.js"></script>
+<script>
+let C={ans:2.8,said:5.2,tw:11.0,qt:13.0,end:18.5,A:23.5,D:25.7};
+const Q='هل وظيفتي بتختفي؟';
+function setT(T){
+  const {ans,said,tw,qt,end,A}=C;
+  $('bgB').style.opacity=lin(T,said-.2,said+.2)*(1-lin(T,end-.2,end+.2));
+  $('bgG').style.opacity=lin(T,end-.2,end+.2);
+  // hook: AI terminal typing the question
+  popEl('w1',T,0.05,said); $('w1').style.transform+=` translateX(${T<1.5?Math.sin(T*50)*6:0}px)`;
+  const av=vis(T,0.2,said,.25,.2); $('ai').style.opacity=av; $('ai').style.transform=`translateY(${(1-outCubic(lin(T,.2,.5)))*150}px)`;
+  const n=Math.floor(lin(T,0.4,1.9)*Q.length);
+  $('q').innerHTML=Q.slice(0,n)+'<span class="cur" style="opacity:'+((Math.floor(T*3)%2)?1:0)+'"></span>'+(T>ans?'<br><span style="color:#ff6b6b">…الجواب ما بيعجبك</span>':'');
+  pose('think',T,0,ans,{sc:.75,bob:4});
+  pose('shock',T,ans,said,{sc:.75,bob:5,rot:2});
+  $('flash').style.opacity=(T>=ans&&T<ans+.25)?(1-lin(T,ans,ans+.25))*.5:0;
+  // tasks AI can do
+  popEl('t2',T,said,tw); ['k1','k2','k3'].forEach((k,i)=>popEl(k,T,said+2.3+i*1.2,tw));
+  pose('shrug',T,said,tw,{sc:.62,bob:4});
+  // twist
+  popEl('t3',T,tw,end);
+  popEl('qt',T,qt,end,{fi:.35});
+  if(T>qt+1.2){ $('qt').style.transform+=` scale(${1+0.02*Math.sin(T*6)})`; }
+  pose('shock2',T,tw,end,{sc:.62,bob:5,rot:2});
+  // end
+  popEl('z1',T,end+.05,A); popEl('z2',T,end+2.3,A);
+  pose('scheme',T,end,A,{sc:.82,bob:6});
+  yalla(T,A);
+}
+injectYalla(); setT(0);
+</script></body></html>

@@ -1,0 +1,16 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>body{background:var(--bg)}
+.scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0 2px,transparent 2px 6px)}
+.glow{position:absolute;left:50%;top:1150px;width:1300px;height:1300px;margin:-650px 0 0 -650px;border-radius:50%;background:radial-gradient(circle,var(--glow) 0%,transparent 60%)}
+.tag{left:50%;top:150px;transform:translateX(-50%) rotate(-3deg);background:var(--tagbg);color:var(--tagfg);font-weight:900;font-size:60px;padding:10px 46px;border-radius:20px;white-space:nowrap;box-shadow:0 10px 0 rgba(0,0,0,.45)}
+.t{left:30px;right:30px;top:300px;text-align:center;font-weight:900;font-size:var(--fs);line-height:1.08;color:#fff;text-shadow:0 12px 0 #000,0 0 40px rgba(0,0,0,.5)}
+.t b{color:#ffd23f}
+.badge{left:50%;top:var(--by);transform:translateX(-50%);font-family:CairoL,Cairo;font-weight:900;font-size:58px;color:#0a2a26;background:#3ee6b5;border-radius:24px;padding:4px 34px;white-space:nowrap}
+img{position:absolute;left:50%;bottom:-30px;width:880px;transform:translateX(-50%)}</style></head><body>
+<div id="stage"><div class="glow"></div><div class="scan"></div><img id="p"><div class="abs tag" id="tag"></div><div class="abs t" id="t"></div><div class="abs badge" id="bd"></div></div>
+<script>const q=new URLSearchParams(location.search),r=document.documentElement.style;
+r.setProperty('--bg',q.get('bg')||'radial-gradient(circle at 50% 40%,#5c1020 0%,#14060b 80%)');r.setProperty('--glow',q.get('glow')||'rgba(255,60,60,.35)');
+r.setProperty('--tagbg',q.get('tagbg')||'#e5383b');r.setProperty('--tagfg',q.get('tagfg')||'#fff');r.setProperty('--fs',(q.get('fs')||150)+'px');r.setProperty('--by',(q.get('by')||700)+'px');
+document.getElementById('tag').textContent=q.get('tag');document.getElementById('t').innerHTML=q.get('t');
+const bd=document.getElementById('bd');if(q.get('badge'))bd.textContent=q.get('badge');else bd.remove();
+document.getElementById('p').src='../mascot/pose_'+q.get('p')+'.png';</script></body></html>

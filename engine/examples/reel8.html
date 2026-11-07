@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../lib/base.css">
+<style>
+#bgA{background:radial-gradient(circle at 50% 30%,#3a2a5c 0%,#1b1530 70%)}
+#bgB{background:radial-gradient(circle at 50% 30%,#0f4c5c 0%,#0a1e2a 75%)}
+#bgE{background:radial-gradient(circle at 50% 30%,#0f5c4c 0%,#0a2a26 75%)}
+.chat{left:80px;right:80px;top:340px;height:620px;border-radius:44px;background:#e9e1d6;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.chat .hd{height:110px;background:#075e54;display:flex;align-items:center;gap:22px;padding:0 34px;color:#fff;font-weight:700;font-size:40px}
+.chat .av{width:70px;height:70px;border-radius:50%;background:#3ee6b5;color:#0a2a26;font-family:CairoL;font-weight:900;font-size:34px;display:flex;align-items:center;justify-content:center}
+.b{position:absolute;max-width:760px;padding:20px 28px;border-radius:28px;font-size:42px;font-weight:700;line-height:1.35;color:#111;box-shadow:0 3px 0 rgba(0,0,0,.12)}
+.me{right:26px;background:#fff;border-top-right-radius:6px}
+.ag{left:26px;background:#dcf8c6;border-top-left-radius:6px}
+.ltr{direction:ltr;text-align:left;font-family:CairoL,Cairo}
+.vn{display:flex;align-items:center;gap:16px;direction:ltr}
+.vn .pl{width:0;height:0;border-left:30px solid #075e54;border-top:20px solid transparent;border-bottom:20px solid transparent}
+.vn .bars{display:flex;gap:6px;align-items:center}
+.vn .bars i{display:block;width:8px;background:#34b7f1;border-radius:4px}
+.vn .mic{width:64px;height:64px;border-radius:50%;background:#3ee6b5}
+.num{top:150px;left:50%;margin-left:-90px;width:180px;height:180px;border-radius:50%;background:#ffd23f;color:#1b1530;font-family:CairoL;font-weight:900;font-size:120px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 0 #b38a00}
+.cap{left:60px;right:60px;top:180px;text-align:center;font-weight:900;font-size:64px}
+.cal{left:50%;top:420px;margin-left:-170px;width:340px;height:360px;border-radius:30px;background:#fff;overflow:hidden;box-shadow:0 18px 0 rgba(0,0,0,.3);text-align:center;color:#1b1530}
+.cal .top{height:90px;background:#e5383b;color:#fff;font-weight:900;font-size:48px;line-height:90px}
+.cal .d{font-family:CairoL;font-weight:900;font-size:170px;line-height:240px}
+.done{left:50%;top:840px;margin-left:-300px;width:600px;text-align:center;background:#3ee6b5;color:#0a2a26;border-radius:60px;font-weight:900;font-size:66px;padding:10px 0}
+</style></head><body>
+<div id="stage">
+  <div class="bg" id="bgA"></div><div class="bg" id="bgB" style="opacity:0"></div><div class="bg" id="bgE" style="opacity:0"></div>
+
+  <div class="abs title" id="h1" style="top:170px;font-size:104px;white-space:nowrap">والله ما <b>توقعت!</b></div>
+  <div class="abs title" id="h2" style="top:360px;font-size:64px">الذكاء الاصطناعي يسوي كذا؟!</div>
+
+  <div class="abs num" id="n1">1</div><div class="abs num" id="n2">2</div><div class="abs num" id="n3">3</div>
+
+  <!-- scene 1: voice note -->
+  <div class="abs chat" id="c1"><div class="hd"><div class="av">AI</div>وكيلك الذكي</div>
+    <div class="b me" id="v1" style="top:150px"><div class="vn"><div class="pl"></div><div class="bars" id="bars"></div><span style="font-size:32px;color:#667">0:12</span><div class="mic"></div></div></div>
+    <div class="b ag" id="v2" style="top:330px">هلا! وصلني فويسك، الموعد بكرة الساعة 5 متاح، أحجزه لك؟</div>
+  </div>
+  <div class="abs pill" id="t1" style="top:990px;margin-left:-330px;width:660px;text-align:center">سمع الفويس ورد كتابة</div>
+
+  <!-- scene 2: english -->
+  <div class="abs chat" id="c2"><div class="hd"><div class="av">AI</div>وكيلك الذكي</div>
+    <div class="b me ltr" id="e1" style="top:150px">Hi! How much is a haircut?</div>
+    <div class="b ag ltr" id="e2" style="top:300px">Hi there! Prices start from 60 SAR. Want me to book you a slot today?</div>
+  </div>
+  <div class="abs pill" id="t2" style="top:990px;margin-left:-330px;width:660px;text-align:center">يرد بلغة عميلك</div>
+
+  <!-- scene 3: follow-up -->
+  <div class="abs cal" id="cal"><div class="top">بعد يومين</div><div class="d" id="cd" dir="ltr">+2</div></div>
+  <div class="abs chat" id="c3" style="top:330px"><div class="hd"><div class="av">AI</div>وكيلك الذكي</div>
+    <div class="b ag" id="f1" style="top:150px">هلا مرة ثانية! لسا تبي الموعد؟ عندنا وقت فاضي بكرة</div>
+    <div class="b me" id="f2" style="top:360px">إيه أكيد، احجز لي</div>
+  </div>
+  <div class="abs done" id="done">✓ تم الحجز</div>
+
+  <!-- end -->
+  <div class="abs title" id="z1" style="top:260px;font-size:110px">موظف <b>بهالذكاء؟</b></div>
+
+  <img class="pose" id="p_shock" src="../mascot/pose_shock.png">
+  <img class="pose" id="p_think" src="../mascot/pose_think.png">
+  <img class="pose" id="p_point" src="../mascot/pose_point.png">
+  <img class="pose" id="p_shock2" src="../mascot/pose_shock.png">
+  <img class="pose" id="p_wink" src="../mascot/pose_wink.png">
+  <div class="flash" id="flash"></div>
+</div>
+<script src="../lib/lib.js"></script>
+<script>
+let C={s1:3.0,s2:8.0,s3:13.0,end:21.5,A:24.5,D:26.7};
+const bars=$('bars');for(let i=0;i<22;i++){const x=document.createElement('i');x.style.height=(14+((i*37)%46))+'px';bars.appendChild(x);}
+function setT(T){
+  const {s1,s2,s3,end,A}=C;
+  $('bgB').style.opacity=lin(T,s1-.2,s1+.2)*(1-lin(T,end-.2,end+.2));
+  $('bgE').style.opacity=lin(T,end-.2,end+.2);
+  // hook
+  popEl('h1',T,0.05,s1); $('h1').style.transform+=` rotate(${Math.sin(T*9)*2}deg)`;
+  popEl('h2',T,0.8,s1);
+  pose('shock',T,0,s1,{sc:.85,bob:5,rot:1.5});
+  // numbers
+  popEl('n1',T,s1,s2); popEl('n2',T,s2,s3); popEl('n3',T,s3,end);
+  // scene 1
+  const v1=vis(T,s1+.1,s2,.3,.2); $('c1').style.opacity=v1; $('c1').style.transform=`translateY(${(1-outCubic(lin(T,s1+.1,s1+.45)))*200}px)`;
+  popEl('v1',T,s1+.5,s2); $('v1').style.transformOrigin='100% 0';
+  [...bars.children].forEach((b,i)=>{b.style.background=(T>s1+.8&&(i/22)<lin(T,s1+.8,s1+2.2))?'#075e54':'#34b7f1';});
+  popEl('v2',T,s1+2.4,s2); $('v2').style.transformOrigin='0 0';
+  popEl('t1',T,s1+2.8,s2);
+  pose('think',T,s1,s2,{sc:.6,x:250,bob:4});
+  // scene 2
+  const v2=vis(T,s2+.1,s3,.3,.2); $('c2').style.opacity=v2; $('c2').style.transform=`translateY(${(1-outCubic(lin(T,s2+.1,s2+.45)))*200}px)`;
+  popEl('e1',T,s2+.5,s3); $('e1').style.transformOrigin='100% 0';
+  popEl('e2',T,s2+1.6,s3); $('e2').style.transformOrigin='0 0';
+  popEl('t2',T,s2+2.2,s3);
+  pose('point',T,s2,s3,{sc:.6,x:250,bob:5});
+  // scene 3
+  const d2=C.d2??s3+1.0, fa=C.f??s3+2.0, bk=C.bk??s3+4.4;
+  popEl('cal',T,s3+.1,fa+.2);
+  $('cd').textContent=T<d2?'+1':'+2';
+  if(T>=d2&&T<d2+.4) $('cal').style.transform+=` scale(${1+.15*Math.sin((T-d2)*8)})`;
+  const v3=vis(T,fa,end,.3,.2); $('c3').style.opacity=v3; $('c3').style.transform=`translateY(${(1-outCubic(lin(T,fa,fa+.35)))*200}px)`;
+  popEl('f1',T,fa+.4,end); $('f1').style.transformOrigin='0 0';
+  popEl('f2',T,Math.min(fa+1.2,bk-.3),end); $('f2').style.transformOrigin='100% 0';
+  popEl('done',T,bk,end,{fi:.25}); $('done').style.transform+=` rotate(${Math.sin((T-bk)*20)*3*Math.exp(-Math.max(0,T-bk)*3)}deg)`;
+  $('flash').style.opacity=(T>=bk&&T<bk+.3)?(1-lin(T,bk,bk+.3))*.6:0;
+  pose('shock2',T,bk-.1,end,{sc:.62,x:250,bob:4,rot:2});
+  pose('wink',T,s3,bk-.1,{sc:.6,x:250,bob:4});
+  // end
+  popEl('z1',T,end+.05,A);
+  yalla(T,A);
+  if(T>=end&&T<A){const el=$('p_shock');pose('shock',T,end,A,{sc:.85,bob:6});}
+}
+injectYalla(); setT(0);
+</script></body></html>

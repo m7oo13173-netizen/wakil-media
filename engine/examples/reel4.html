@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../lib/base.css">
+<style>
+#bgA{background:linear-gradient(90deg,#0d3b33 0%,#0d3b33 50%,#4a1420 50%,#4a1420 100%)}
+#bgK{background:radial-gradient(circle at 50% 40%,#5c1f2a 0%,#1a0a10 80%)}
+#bgW{background:radial-gradient(circle at 50% 35%,#16806a 0%,#0a2a26 80%)}
+.side{top:0;bottom:0;width:540px}
+.score{top:60px;width:440px;height:150px;border-radius:30px;display:flex;align-items:center;justify-content:space-between;padding:0 34px;font-weight:900;font-size:56px;box-shadow:0 10px 0 rgba(0,0,0,.3)}
+.score b{font-family:CairoL;font-size:100px}
+#scE{right:40px;background:#e5383b}
+#scA{left:40px;background:#3ee6b5;color:#0a2a26}
+.vs{left:50%;top:600px;width:260px;height:260px;margin-left:-130px;border-radius:50%;background:#ffd23f;color:#1b1530;font-family:CairoL;font-weight:900;font-size:130px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 14px rgba(255,210,63,.3),0 14px 0 #b38a00}
+.round{left:50%;top:250px;margin-left:-260px;width:520px;text-align:center;background:#fff;color:#1b1530;border-radius:60px;font-weight:900;font-size:70px;padding:6px 0}
+.stat{top:420px;width:440px;min-height:220px;border-radius:36px;text-align:center;font-weight:900;font-size:62px;line-height:1.15;padding:26px 20px;box-shadow:0 12px 0 rgba(0,0,0,.3)}
+.stat small{display:block;font-size:38px;font-weight:700;opacity:.85}
+.stE{right:50px;background:#fff;color:#8d1d20;border:8px solid #e5383b}
+.stA{left:50px;background:#fff;color:#0b6b56;border:8px solid #3ee6b5}
+/* employee silhouette */
+#emp{right:70px;bottom:0;width:400px;height:900px;transform-origin:50% 100%}
+#emp .hd{position:absolute;left:115px;top:150px;width:170px;height:190px;border-radius:50%;background:#b9b2bf}
+#emp .bd{position:absolute;left:30px;top:350px;width:340px;height:560px;border-radius:150px 150px 0 0;background:#8f8798}
+#emp .tie{position:absolute;left:180px;top:360px;width:40px;height:220px;background:#e5383b;clip-path:polygon(50% 0,100% 15%,70% 100%,30% 100%,0 15%)}
+#emp .zz{position:absolute;left:250px;top:60px;font-family:CairoL;font-weight:900;font-size:90px;color:#fff;opacity:0}
+.gone{right:80px;top:720px;width:400px;text-align:center;border:12px solid #e5383b;color:#e5383b;font-weight:900;font-size:96px;border-radius:30px;background:rgba(255,255,255,.95)}
+.ko{left:0;right:0;top:300px;text-align:center;font-family:CairoL;font-weight:900;font-size:300px;color:#e5383b;text-shadow:0 16px 0 #5c0f12}
+</style></head><body>
+<div id="stage">
+  <div class="bg" id="bgA"></div><div class="bg" id="bgK" style="opacity:0"></div><div class="bg" id="bgW" style="opacity:0"></div>
+
+  <div class="abs score" id="scE"><span>الموظف</span><b id="nE">0</b></div>
+  <div class="abs score" id="scA"><span>الوكيل</span><b id="nA">0</b></div>
+
+  <div class="abs title" id="h1" style="top:260px;font-size:92px">الموظف <b>ضد</b> الوكيل!</div>
+  <div class="abs vs" id="vs">VS</div>
+  <div class="abs title" id="h2" style="top:920px;font-size:80px">مين يفوز؟</div>
+
+  <div class="abs round" id="rd1">الجولة 1</div><div class="abs round" id="rd2">الجولة 2</div><div class="abs round" id="rd3">الجولة 3</div>
+  <div class="abs stat stE" id="e1"><small>يداوم</small>8 ساعات</div>
+  <div class="abs stat stA" id="a1"><small>شغال</small>24 ساعة</div>
+  <div class="abs stat stE" id="e2"><small>يرد على</small>عميل واحد</div>
+  <div class="abs stat stA" id="a2"><small>يرد على</small>100 عميل<small>بنفس اللحظة</small></div>
+  <div class="abs stat stE" id="e3"><small>اليوم</small>تعبان وما جا</div>
+  <div class="abs stat stA" id="a3"><small>دايماً</small>ما يتعب أبد</div>
+
+  <div class="abs" id="emp"><div class="hd"></div><div class="bd"></div><div class="tie"></div><div class="zz" id="zz">z z</div></div>
+  <div class="abs gone" id="gone">غايب</div>
+
+  <div class="abs title" id="k1" style="top:150px;font-size:110px;color:#ffd23f">الضربة القاضية!</div>
+  <div class="abs ko" id="ko" dir="ltr">K.O.</div>
+  <div class="abs pill" id="k2" style="top:720px;margin-left:-300px;width:600px;text-align:center;font-size:64px">تكلفته أقل بكثير</div>
+
+  <div class="abs title" id="w1" style="top:240px;font-size:120px">الفايز <b>واضح!</b></div>
+
+  <img class="pose" id="p_point" src="../mascot/pose_point.png">
+  <img class="pose" id="p_wink" src="../mascot/pose_wink.png">
+  <img class="pose" id="p_celebrate" src="../mascot/pose_celebrate.png">
+  <div class="flash" id="flash"></div>
+</div>
+<script src="../lib/lib.js"></script>
+<script>
+let C={r1:3.0,r2:7.5,r3:12.5,ko:16.5,win:19.8,A:23.0,D:25.3};
+function setT(T){
+  const {r1,r2,r3,ko,win,A}=C;
+  $('bgK').style.opacity=lin(T,ko-.15,ko+.1)*(1-lin(T,win-.2,win+.1));
+  $('bgW').style.opacity=lin(T,win-.2,win+.1);
+  // scoreboard
+  const sv=T<ko?lin(T,r1-.4,r1)*(1-lin(T,ko-.2,ko)):0;
+  ['scE','scA'].forEach(id=>{$(id).style.opacity=sv;});
+  $('scE').style.transform=`translateX(${(1-outCubic(sv))*500}px)`;
+  $('scA').style.transform=`translateX(${-(1-outCubic(sv))*500}px)`;
+  const H=[1,2,3].map(i=>(C['h'+i]??[r1,r2,r3][i-1]+1.2)+.55);
+  const pts=H.filter(x=>T>=x).length;
+  $('nA').textContent=pts; $('nE').textContent=0;
+  const lastP=H.filter(x=>T>=x).pop();
+  $('nA').style.display='inline-block';
+  $('nA').style.transform=lastP!==undefined?`scale(${1+0.6*Math.exp(-(T-lastP)*6)})`:'none';
+  // hook
+  popEl('h1',T,0.05,r1); popEl('vs',T,0.4,r1); $('vs').style.transform+=` rotate(${Math.sin(T*8)*6}deg)`;
+  popEl('h2',T,1.2,r1);
+  // rounds
+  [[r1,r2,1],[r2,r3,2],[r3,ko,3]].forEach(([a,b,i])=>{
+    const ea=C['e'+i]??a+.5, ha=C['h'+i]??a+1.2;
+    popEl('rd'+i,T,a,b); popEl('e'+i,T,ea,b); popEl('a'+i,T,ha,b);
+    const hit=ha+.55; if(T>=hit&&T<hit+.5) $('a'+i).style.transform+=` translateX(${Math.sin((T-hit)*60)*10*Math.exp(-(T-hit)*6)}px)`;
+  });
+  const fl=[...H,ko];let f=0;fl.forEach(x=>{if(T>=x&&T<x+.25)f=Math.max(f,(1-lin(T,x,x+.25))*.7)});$('flash').style.opacity=f;
+  // employee figure
+  const empOn=T>=r1&&T<win;
+  const e=$('emp'); e.style.opacity=empOn?Math.min(1,lin(T,r1,r1+.3))*(1-lin(T,ko+1.1,ko+1.5)):0;
+  const fall=outCubic(lin(T,ko+.3,ko+1.0));
+  const e3=C.e3??r3+.5; const slump=lin(T,e3+.5,e3+1.2)*8;
+  e.style.transform=`translateX(${-fall*60}px) rotate(${-(slump+fall*82)}deg) scale(.62)`;
+  $('zz').style.opacity=(T>e3+.5&&T<ko)?0.6+0.4*Math.sin(T*6):0;
+  popEl('gone',T,e3+.9,ko,{fi:.2}); $('gone').style.transform+=' rotate(-10deg)';
+  // agent mascot (left side)
+  pose('point',T,r1,ko,{sc:.58,x:-260,bob:5});
+  // KO
+  popEl('k1',T,ko,win); $('k1').style.transform+=` translate(${Math.sin(T*50)*8*Math.exp(-(T-ko)*2)}px,0)`;
+  popEl('ko',T,ko+.3,win,{fi:.2}); $('ko').style.transform+=` rotate(${-6+Math.sin(T*30)*2*Math.exp(-(T-ko)*2)}deg)`;
+  popEl('k2',T,ko+1.2,win);
+  pose('wink',T,ko,win,{sc:.62,x:-260,bob:4});
+  // win
+  popEl('w1',T,win+.05,A);
+  pose('celebrate',T,win,A,{sc:.85,bob:10,rot:2});
+  yalla(T,A);
+}
+injectYalla(); setT(0);
+</script></body></html>

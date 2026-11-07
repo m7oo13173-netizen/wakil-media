@@ -1,0 +1,8 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>body{background:radial-gradient(circle at 50% 35%,#ffd23f 0%,#ff8a00 55%,#d9480f 100%)}
+.tag{left:50%;top:150px;transform:translateX(-50%);background:#1b1530;color:#fff;font-weight:900;font-size:64px;padding:12px 50px;border-radius:70px;white-space:nowrap}
+.t{left:60px;right:60px;top:290px;text-align:center;font-weight:900;font-size:84px;line-height:1.2;color:#fff;text-shadow:0 10px 0 #b03a00}
+.cta{left:50%;bottom:120px;transform:translateX(-50%);background:#fff;color:#1b1530;font-weight:900;font-size:62px;padding:16px 60px;border-radius:80px;white-space:nowrap;box-shadow:0 12px 0 rgba(0,0,0,.25)}
+img{position:absolute;left:50%;bottom:-40px;width:740px;transform:translateX(-50%)}</style></head><body>
+<div id="stage"><img id="p"><div class="abs tag">ريل جديد نزل الحين</div><div class="abs t" id="t"></div><div class="abs cta">شوفه بالبروفايل</div></div>
+<script>const q=new URLSearchParams(location.search);document.getElementById('t').innerHTML=q.get('t');document.getElementById('p').src='../mascot/pose_'+q.get('p')+'.png';</script></body></html>

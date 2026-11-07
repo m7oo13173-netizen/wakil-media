@@ -1,0 +1,19 @@
+@font-face{font-family:Cairo;font-weight:400;src:url(../fonts/fontsource-cairo-5.0.13/files/cairo-arabic-400-normal.woff2)}
+@font-face{font-family:Cairo;font-weight:700;src:url(../fonts/fontsource-cairo-5.0.13/files/cairo-arabic-700-normal.woff2)}
+@font-face{font-family:Cairo;font-weight:900;src:url(../fonts/fontsource-cairo-5.0.13/files/cairo-arabic-900-normal.woff2)}
+@font-face{font-family:CairoL;font-weight:700;src:url(../fonts/fontsource-cairo-5.0.13/files/cairo-latin-700-normal.woff2)}
+@font-face{font-family:CairoL;font-weight:900;src:url(../fonts/fontsource-cairo-5.0.13/files/cairo-latin-900-normal.woff2)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:clip;background:#000;font-family:Cairo,CairoL,sans-serif;color:#fff}
+html{direction:ltr}body{direction:rtl}
+#stage{position:fixed;inset:0;overflow:hidden}
+.bg{position:absolute;inset:0}
+.abs{position:absolute}
+.title{left:60px;right:60px;text-align:center;font-weight:900;font-size:84px;line-height:1.25;text-shadow:0 6px 0 rgba(0,0,0,.35)}
+.title b{color:#ffd23f}
+.big{left:0;right:0;text-align:center;font-weight:900;font-size:130px;text-shadow:0 8px 0 rgba(0,0,0,.35)}
+.pose{position:absolute;left:50%;bottom:-20px;width:820px;transform-origin:50% 100%;opacity:0}
+.pill{left:50%;background:#ffd23f;color:#1b1530;font-weight:900;font-size:56px;padding:10px 44px;border-radius:60px;white-space:nowrap}
+.brand{left:0;right:0;text-align:center;font-family:CairoL,Cairo;font-weight:900;font-size:120px;direction:ltr}
+.brand span{color:#3ee6b5}
+.flash{position:absolute;inset:0;background:#fff;opacity:0}

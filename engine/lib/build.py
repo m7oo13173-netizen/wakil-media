@@ -18,9 +18,10 @@ CUES = {
               ("ko", r"ضرب|القاضي"), ("win", r"الفا|واضح")],
 }
 CUES["reel6"] = [("off", r"ظرف|كان"), ("night", r"آخر|وآخر|الليل"), ("bk", r"حجوز"), ("q", r"سؤال|وكل"), ("angry", r"حتى|معص"), ("dn", r"هدا|حجز"), ("end", r"خل|وكيلك")]
+CUES["talk9"] = CUES_T9 = [("ans", r"جاوب|بصراح"), ("said", r"قال"), ("tw", r"بس|بعدها"), ("qt", r"الذكاء"), ("end", r"تخاف|فلا")]
 CUES["reel9"] = [("ans", r"جاوب|بصراح"), ("said", r"قال"), ("tw", r"بس|بعدها"), ("qt", r"الذكاء"), ("end", r"تخاف|فلا")]
 CUES["reel8"] = [("s1", r"أول|اول"), ("s2", r"ثاني"), ("s3", r"ثالث"), ("d2", r"يومين"), ("f", r"الوكيل"), ("bk", r"حجز"), ("end", r"موظف")]
-SFX_HITS = {"reel9": lambda c: [c["ans"]], "reel6": lambda c: [c["bk"]], "reel8": lambda c: [c["bk"]], "reel4": lambda c: [c["h1"] + 0.55, c["h2"] + 0.55, c["h3"] + 0.55], "reel5": lambda c: []}
+SFX_HITS = {"talk9": lambda c: [c["ans"]], "reel9": lambda c: [c["ans"]], "reel6": lambda c: [c["bk"]], "reel8": lambda c: [c["bk"]], "reel4": lambda c: [c["h1"] + 0.55, c["h2"] + 0.55, c["h3"] + 0.55], "reel5": lambda c: []}
 
 # 1) transcribe
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", voice, "-ac", "1", "-ar", "16000", "/tmp/_v16.wav"], check=True)
@@ -47,7 +48,17 @@ i = end_i
 while i > 0 and (voiced[i] or voiced[max(0, i - 8):i].any()): i -= 1
 cues["A"] = round(max(cues[list(cues)[-1]] + 1.0, i * 0.01 - 0.05), 2)
 cues["D"] = round(max(dur, cues["A"] + 2.2), 2)
-print("cues", cues)
+# per-frame (30fps) voice envelope + "roundness" for lip-sync
+hop = 16000 // 30; fr = []
+for k in range(int(dur * 30) + 1):
+    x = a16[k * hop:k * hop + 2 * hop]
+    if len(x) < 10: fr.append((0, 0)); continue
+    zc = np.mean(np.abs(np.diff(np.sign(x)))) / 2
+    fr.append((float(np.sqrt(np.mean(x ** 2))), float(zc)))
+pk = np.percentile([r for r, _ in fr if r > 0], 95) or 1
+cues["env"] = [round(min(1, r / pk), 2) for r, _ in fr]
+cues["zc"] = [round(z, 3) for _, z in fr]
+print("cues", {k: v for k, v in cues.items() if k not in ("env", "zc")})
 json.dump(cues, open(os.path.join(D_REEL, "cues.json"), "w"))
 
 # 2) audio mix
@@ -88,11 +99,12 @@ while t < cues["A"] - 0.3:
     t += beat; b += 1
 mix *= 0.5
 for k, v in cues.items():
+    if k in ("env", "zc"): continue
     if k in ("A", "D", "d2", "f", "bk", "dn") or k[0] in "eh" and k[1:].isdigit(): continue
     add(whoosh(), max(0, v - 0.1), 0.6); add(pop(), v + 0.4, 0.6)
 for h in SFX_HITS[reel](cues): add(punch(), h, 1.0)
 if "ko" in cues: add(punch(), cues["ko"], 1.6); add(punch(), cues["ko"] + 0.3, 1.4)
-add(chime(), list(cues.values())[-3] + 0.3, 0.6)
+add(chime(), [v for k, v in cues.items() if k not in ("env", "zc")][-3] + 0.3, 0.6)
 A = cues["A"]; add(whoosh(0.3), A - 0.25, 0.9); add(kick, A, 1.6); add(chime(), A + 0.05, 1.2); add(noise(0.6, 0.25) * 0.25, A)
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", voice, "-ac", "1", "-ar", str(SR), "/tmp/_vo.wav"], check=True)
 vw = wave.open("/tmp/_vo.wav"); v = np.frombuffer(vw.readframes(vw.getnframes()), np.int16).astype(float) / 32768
